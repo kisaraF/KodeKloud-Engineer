@@ -60,7 +60,7 @@ test:
 	pytest tests/
 
 clean:
-	find . -type d -name __pycache__ -exec rm -rf {} +\n\trm -rf .pytest_cache\n\trm -rf models/*
+	find . -type d -name "__pycache__" -exec rm -rf {} + && rm -rf .pytest_cache && rm -rf models/*
 
 all: setup data train test
 ```
@@ -75,3 +75,15 @@ all: setup data train test
 This is useful especially in following scenarios:
 - Bootstrapping the engineering environment: Tie sophisticated commands or multiple long build commands into one keyword like `make build`
 - CI/CD pipelines: Instead of writing 10 steps, a makefile will replace all that in one command. Unless you have no special conditions to add in each step or dynamic context objects to refer to (except for runner deps installation and cache/ checkout code actions)
+
+### Explanation on `rm -rf` command:
+
+```bash
+find . -type d -name "__pycache__" -exec rm -rf {} +
+```
+
+- `-exec` will run another bash command; here we use rm -rf command
+- `{}` will take all the paths found from find command
+- `+` will efficiently group all paths together
+	- If there are 5 paths to delete, rather than doing it five times, it will be done in one line
+	- ___rm -rf /root/code/file_a.txt /root/code/file_b/txt___
