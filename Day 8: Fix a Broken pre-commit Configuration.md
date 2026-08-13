@@ -47,6 +47,8 @@ repos:
 - Pre-commit is tied to current project. When it's first created by running a command (run or git commit), it creates a cache inside ***`.git/hooks/pre-commit`***
 - Pre-commit manages its own isolated virtual environment at ***`~/.cache/pre-commit`*** for each repo. Dependencies are installed in that cache too.
 - You can add your own commits as well. See [this](https://medium.com/data-science/custom-pre-commit-hooks-for-safer-code-changes-d8b8aa1b2ebb) guide for more info ___(subject to change upon testing)___
+- If you already have a tool configuration (ruff, black, sqlfluff) in the project, the pre-hook will adhere to it as the commands are based on what's in the project.
+- You can easily install pre-commit though virtual environment like uv. Once the command `pre-hook install` is run, there will be a directory built in the `.git/hooks` which will help `git commit` to run pre-hook checks without the virtual environment to be in an active state.
 
 ### References
 
